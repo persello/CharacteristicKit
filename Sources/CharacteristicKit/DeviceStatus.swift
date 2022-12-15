@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Represents the status of the connection to the peripheral.
 public enum DeviceStatus: CustomStringConvertible {
     case disconnected
     case connecting

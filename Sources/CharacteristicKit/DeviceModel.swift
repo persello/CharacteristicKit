@@ -7,7 +7,12 @@
 
 import Foundation
 
+/// Represents the root class of a peripheral model.
 public protocol DeviceModel: CharacteristicContainer {
+    
+    /// The status of the device is updated by the delegate.
     var status: DeviceStatus { get set }
-    var peripherals: PeripheralDelegate<Self> { get }
+    
+    /// The required reference to the peripheral delegate.
+    var delegate: PeripheralDelegate<Self> { get }
 }
