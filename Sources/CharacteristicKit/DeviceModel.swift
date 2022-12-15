@@ -14,5 +14,5 @@ public protocol DeviceModel: CharacteristicContainer {
     var status: DeviceStatus { get set }
     
     /// The required reference to the peripheral delegate.
-    var delegate: PeripheralDelegate<Self> { get }
+    var delegate: PeripheralDelegate<Self>? { get }
 }

@@ -37,7 +37,7 @@ public extension CharacteristicContainer {
 }
 
 /// A protocol that defines a standardised interface for ``Characteristic`` and its mock ``FakeCharacteristic``.
-protocol CharacteristicProtocol<T>: ObservableObject, Equatable {
+public protocol CharacteristicProtocol<T>: ObservableObject, Equatable {
     associatedtype T: Equatable
     
     var value: T { get set }
@@ -50,7 +50,7 @@ protocol CharacteristicProtocol<T>: ObservableObject, Equatable {
     func setLocalValue(value: T)
 }
 
-extension CharacteristicProtocol {
+public extension CharacteristicProtocol {
     var type: Any.Type {
         return T.self
     }
@@ -58,7 +58,7 @@ extension CharacteristicProtocol {
 
 /// Represents a mock of ``Characteristic``, useful for creating simulated device models.
 public class FakeCharacteristic<T: Equatable>: CharacteristicProtocol {
-    
+        
     /// The wrapped value of this property.
     @Published public var value: T
     
@@ -68,18 +68,17 @@ public class FakeCharacteristic<T: Equatable>: CharacteristicProtocol {
     
     /// Creates a new characteristic mock.
     /// - Parameter constant: The initial value of this property.
-    init(constant: T) {
+    public init(constant: T) {
         self.value = constant
     }
     
-    func onDiscovered(in peripheral: CBPeripheral) {}
+    public func onDiscovered(in peripheral: CBPeripheral) {}
     
-    func refreshValue() {}
-    
+    public func refreshValue() {}
     
     /// Set the internal value from a buffer of bytes.
     /// - Parameter data: Raw value representation.
-    func setLocalValue(data: Data) {
+    public func setLocalValue(data: Data) {
         DispatchQueue.main.async {
             self.value = data.withUnsafeBytes({$0.load(as: T.self)})
         }
@@ -87,7 +86,7 @@ public class FakeCharacteristic<T: Equatable>: CharacteristicProtocol {
     
     /// Set the internal value
     /// - Parameter value: new value.
-    func setLocalValue(value: T) {
+    public func setLocalValue(value: T) {
         DispatchQueue.main.async {
             self.value = value
         }
@@ -126,7 +125,7 @@ public class Characteristic<T: Equatable>: CharacteristicProtocol {
     /// - Parameters:
     ///   - initialValue: A default value.
     ///   - uuid: The characteristic's attribute identifier.
-    init(initialValue: T, uuid: CBUUID) {
+    public init(initialValue: T, uuid: CBUUID) {
         self.internalValue = initialValue
         self.uuid = uuid
         self.lastReadingTime = Date()
@@ -151,14 +150,14 @@ public class Characteristic<T: Equatable>: CharacteristicProtocol {
     
     /// Initialise the internal peripheral reference and try to discover the correspondent CoreBluetooth characteristic.
     /// - Parameter peripheral: CoreBluetooth peripheral.
-    func onDiscovered(in peripheral: CBPeripheral) {
+    public func onDiscovered(in peripheral: CBPeripheral) {
         self.peripheral = peripheral
         self.characteristic = Self.discoverCharacteristic(from: uuid, on: peripheral)
         self.refreshValue()
     }
     
     /// Tries to fetch an updated value for this characteristic.
-    func refreshValue() {
+    public func refreshValue() {
         guard let peripheral else {
             logger.warning("A refresh action has been tried before the peripheral has been set.")
             return
@@ -212,7 +211,7 @@ public class Characteristic<T: Equatable>: CharacteristicProtocol {
     ///
     /// This function triggers an observable object change.
     /// - Parameter data: Raw data received from the device.
-    func setLocalValue(data: Data) {
+    public func setLocalValue(data: Data) {
         // Padding.
         let requiredPadding = MemoryLayout<T>.size - data.count
         var paddedData = Data(count: requiredPadding)
@@ -234,7 +233,7 @@ public class Characteristic<T: Equatable>: CharacteristicProtocol {
     ///
     /// This function triggers an observable object change.
     /// - Parameter value: New value.
-    func setLocalValue(value: T) {
+    public func setLocalValue(value: T) {
         self.internalValue = value
         
         if let csc = self.internalValue as? CustomStringConvertible {
