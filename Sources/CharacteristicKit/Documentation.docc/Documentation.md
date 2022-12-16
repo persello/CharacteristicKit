@@ -4,7 +4,7 @@ Create reactive models for your BLE peripherals.
 
 ## Overview
 
-``CharacteristicKit`` allows you to build a model for your BLE peripherals. Create a class conforming to ``DeviceModel`` to get started.
+``CharacteristicKit`` allows you to build a model for your BLE peripherals.
 
 ## Topics
 

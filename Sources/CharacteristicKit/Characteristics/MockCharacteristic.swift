@@ -24,20 +24,12 @@ public class MockCharacteristic<T: Equatable>: CharacteristicProtocol {
         self.value = constant
     }
     
-    public func onDiscovered(in peripheral: CBPeripheral) {}
-    
-    public func refreshValue() {}
-    
-    /// Set the internal value from a buffer of bytes.
-    /// - Parameter data: Raw value representation.
     public func setLocalValue(data: Data) {
         DispatchQueue.main.async {
             self.value = data.withUnsafeBytes({$0.load(as: T.self)})
         }
     }
-    
-    /// Set the internal value
-    /// - Parameter value: new value.
+
     public func setLocalValue(value: T) {
         DispatchQueue.main.async {
             self.value = value

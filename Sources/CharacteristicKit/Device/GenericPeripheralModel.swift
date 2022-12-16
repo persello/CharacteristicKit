@@ -11,6 +11,9 @@ public protocol GenericPeripheralModel: CharacteristicContainer, ObservableObjec
     /// The status of the device is updated by the delegate.
     var status: PeripheralStatus { get set }
     
+    /// Try to connect to the peripheral.
     func connect()
+    
+    /// Terminate the connection with the peripheral.
     func disconnect()
 }

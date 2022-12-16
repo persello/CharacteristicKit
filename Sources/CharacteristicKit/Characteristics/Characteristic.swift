@@ -10,7 +10,7 @@ import CoreBluetooth
 import os
 
 /// Representation of a GATT characteristic.
-public class Characteristic<T: Equatable>: CharacteristicProtocol {
+public class Characteristic<T: Equatable>: CharacteristicProtocol, DiscoverableCharacteristic {
     /// The latest read or written value for this ``Characteristic``.
     private var internalValue: T
     
@@ -59,8 +59,6 @@ public class Characteristic<T: Equatable>: CharacteristicProtocol {
         }).first)
     }
     
-    /// Initialise the internal peripheral reference and try to discover the correspondent Core Bluetooth characteristic.
-    /// - Parameter peripheral: Core Bluetooth peripheral.
     public func onDiscovered(in peripheral: CBPeripheral) {
         self.peripheral = peripheral
         self.characteristic = Self.discoverCharacteristic(from: uuid, on: peripheral)

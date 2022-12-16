@@ -10,12 +10,18 @@ import Runtime
 import CoreBluetooth
 import os
 
+/// An extension of the Core Bluetooth peripheral delegate that automatically scans its associated ``PeripheralModel`` for contained and nested ``Characteristic``s.
 public class PeripheralDelegate<Device: PeripheralModel>: NSObject, CBPeripheralDelegate {
     internal var logger: Logger
     private var device: Device
     
-    private var variableMap: [CBUUID: any CharacteristicProtocol] = [:]
+    private var variableMap: [CBUUID: any DiscoverableCharacteristic] = [:]
     
+    
+    // TODO: Allow user to opt-out from automatic subscription.
+    
+    /// Initialises a new instance of the delegate from a device that conforms to ``PeripheralModel``.
+    /// - Parameter device: A device conforming to ``PeripheralModel``.
     public init(device: Device) {
         self.logger = Logger(subsystem: "CharacteristicKit", category: "Bluetooth Device Delegate")
         self.device = device
