@@ -1,6 +1,6 @@
 //
 //  PeripheralDelegate.swift
-//  pulse.loop
+//
 //
 //  Created by Riccardo Persello on 05/11/22.
 //
@@ -10,7 +10,7 @@ import Runtime
 import CoreBluetooth
 import os
 
-public class PeripheralDelegate<Device: DeviceModel>: NSObject, CBPeripheralDelegate {
+public class PeripheralDelegate<Device: PeripheralModel>: NSObject, CBPeripheralDelegate {
     internal var logger: Logger
     private var device: Device
     

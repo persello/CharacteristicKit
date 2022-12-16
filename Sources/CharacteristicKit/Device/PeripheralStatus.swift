@@ -1,5 +1,5 @@
 //
-//  DeviceStatus.swift
+//  PeripheralStatus.swift
 //  
 //
 //  Created by Riccardo Persello on 14/12/22.
@@ -8,7 +8,7 @@
 import Foundation
 
 /// Represents the status of the connection to the peripheral.
-public enum DeviceStatus: CustomStringConvertible {
+public enum PeripheralStatus: CustomStringConvertible {
     case disconnected
     case connecting
     case connected
