@@ -8,6 +8,15 @@
         "revision" : "dad03135d7701a4e7b3a4051e75d6b37bd8e178e",
         "version" : "2.2.4"
       }
+    },
+    {
+      "identity" : "sfsafesymbols",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sfsafesymbols/sfsafesymbols",
+      "state" : {
+        "revision" : "2bcd249b49178247e6b52bac7d67d6e338a40cee",
+        "version" : "4.1.0"
+      }
     }
   ],
   "version" : 2

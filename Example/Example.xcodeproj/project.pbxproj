@@ -11,6 +11,10 @@
 		8B9C40B52962FD790061A554 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9C40B42962FD790061A554 /* ContentView.swift */; };
 		8B9C40B72962FD7A0061A554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B9C40B62962FD7A0061A554 /* Assets.xcassets */; };
 		8B9C40BB2962FD7A0061A554 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B9C40BA2962FD7A0061A554 /* Preview Assets.xcassets */; };
+		8BA9487629814971007FC7F4 /* DeviceListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9487529814971007FC7F4 /* DeviceListItem.swift */; };
+		8BA9487929814A7D007FC7F4 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 8BA9487829814A7D007FC7F4 /* SFSafeSymbols */; };
+		8BA9487B29814BDF007FC7F4 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9487A29814BDF007FC7F4 /* DeviceModel.swift */; };
+		8BA9487E29814C04007FC7F4 /* CharacteristicKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8BA9487D29814C04007FC7F4 /* CharacteristicKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +24,9 @@
 		8B9C40B62962FD7A0061A554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B9C40B82962FD7A0061A554 /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example.entitlements; sourceTree = "<group>"; };
 		8B9C40BA2962FD7A0061A554 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8BA9487429814857007FC7F4 /* CharacteristicKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CharacteristicKit; path = ..; sourceTree = "<group>"; };
+		8BA9487529814971007FC7F4 /* DeviceListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListItem.swift; sourceTree = "<group>"; };
+		8BA9487A29814BDF007FC7F4 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +34,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BA9487E29814C04007FC7F4 /* CharacteristicKit in Frameworks */,
+				8BA9487929814A7D007FC7F4 /* SFSafeSymbols in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -36,8 +45,10 @@
 		8B9C40A62962FD790061A554 = {
 			isa = PBXGroup;
 			children = (
+				8BA9487329814857007FC7F4 /* Packages */,
 				8B9C40B12962FD790061A554 /* Example */,
 				8B9C40B02962FD790061A554 /* Products */,
+				8BA9487C29814C04007FC7F4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +65,8 @@
 			children = (
 				8B9C40B22962FD790061A554 /* ExampleApp.swift */,
 				8B9C40B42962FD790061A554 /* ContentView.swift */,
+				8BA9487529814971007FC7F4 /* DeviceListItem.swift */,
+				8BA9487A29814BDF007FC7F4 /* DeviceModel.swift */,
 				8B9C40B62962FD7A0061A554 /* Assets.xcassets */,
 				8B9C40B82962FD7A0061A554 /* Example.entitlements */,
 				8B9C40B92962FD7A0061A554 /* Preview Content */,
@@ -67,6 +80,21 @@
 				8B9C40BA2962FD7A0061A554 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8BA9487329814857007FC7F4 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				8BA9487429814857007FC7F4 /* CharacteristicKit */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		8BA9487C29814C04007FC7F4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -85,6 +113,10 @@
 			dependencies = (
 			);
 			name = Example;
+			packageProductDependencies = (
+				8BA9487829814A7D007FC7F4 /* SFSafeSymbols */,
+				8BA9487D29814C04007FC7F4 /* CharacteristicKit */,
+			);
 			productName = Example;
 			productReference = 8B9C40AF2962FD790061A554 /* Example.app */;
 			productType = "com.apple.product-type.application";
@@ -97,7 +129,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					8B9C40AE2962FD790061A554 = {
 						CreatedOnToolsVersion = 14.1;
@@ -113,6 +145,9 @@
 				Base,
 			);
 			mainGroup = 8B9C40A62962FD790061A554;
+			packageReferences = (
+				8BA9487729814A7D007FC7F4 /* XCRemoteSwiftPackageReference "sfsafesymbols" */,
+			);
 			productRefGroup = 8B9C40B02962FD790061A554 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -140,7 +175,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B9C40B52962FD790061A554 /* ContentView.swift in Sources */,
+				8BA9487B29814BDF007FC7F4 /* DeviceModel.swift in Sources */,
 				8B9C40B32962FD790061A554 /* ExampleApp.swift in Sources */,
+				8BA9487629814971007FC7F4 /* DeviceListItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +217,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -238,6 +276,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -262,8 +301,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Example/Example.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Example/Preview Content\"";
 				DEVELOPMENT_TEAM = BZTVD28H6K;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -300,8 +343,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Example/Example.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Example/Preview Content\"";
 				DEVELOPMENT_TEAM = BZTVD28H6K;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -354,6 +401,29 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8BA9487729814A7D007FC7F4 /* XCRemoteSwiftPackageReference "sfsafesymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sfsafesymbols/sfsafesymbols";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8BA9487829814A7D007FC7F4 /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8BA9487729814A7D007FC7F4 /* XCRemoteSwiftPackageReference "sfsafesymbols" */;
+			productName = SFSafeSymbols;
+		};
+		8BA9487D29814C04007FC7F4 /* CharacteristicKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CharacteristicKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8B9C40A72962FD790061A554 /* Project object */;
 }

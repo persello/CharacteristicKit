@@ -9,13 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        List {
+            DeviceListItem(device: DeviceModel())
+            DeviceListItem(device: DeviceModel())
+            DeviceListItem(device: DeviceModel())
         }
-        .padding()
+        #if os(macOS)
+        .listStyle(.inset(alternatesRowBackgrounds: true))
+        #endif
     }
 }
 
