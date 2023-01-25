@@ -1,3 +1,3 @@
 # CharacteristicKit
 
-A description of this package.
+A library that simplifies the creation of BLE device models.
