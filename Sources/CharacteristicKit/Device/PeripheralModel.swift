@@ -9,15 +9,46 @@ import Foundation
 import CoreBluetooth
 
 /// Represents the root class of a peripheral model.
-public protocol PeripheralModel: GenericPeripheralModel {
+public protocol PeripheralModel: GenericPeripheralModel, Equatable, Identifiable, Hashable {
+    
+    static var requiredAdvertisedServices: [CBUUID]? { get }
+    static var servicesToScan: [CBUUID]? { get }
+    static var centralManager: CBCentralManager? { get set }
+    static var centralManagerDelegate: CBCentralManagerDelegate? { get set }
     
     /// The required reference to the peripheral delegate.
     var delegate: PeripheralDelegate<Self>? { get }
     
     /// The required reference to the peripheral.
-    var peripheral: CBPeripheral? { get }
+    var peripheral: CBPeripheral { get }
     
     /// Initialise the model from a Core Bluetooth peripheral.
     /// - Parameter peripheral: A Core Bluetooth peripheral.
-    init(from peripheral: CBPeripheral?)
+    init(from peripheral: CBPeripheral)
+}
+
+public extension PeripheralModel {
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    var id: UUID {
+        return peripheral.identifier
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.peripheral)
+    }
+}
+
+public extension PeripheralModel {
+    var state: CBPeripheralState {
+        get {
+            return peripheral.state
+        }
+        
+        set {
+            
+        }
+    }
 }

@@ -39,7 +39,7 @@ public class Characteristic<T: Equatable>: CharacteristicProtocol, DiscoverableC
     public init(initialValue: T, uuid: CBUUID) {
         self.internalValue = initialValue
         self.uuid = uuid
-        self.lastReadingTime = Date()
+        self.lastReadingTime = .distantPast
         
         self.logger = Logger(subsystem: "CharacteristicKit", category: "Characteristic \(uuid)")
         

@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import CoreBluetooth
 
 public protocol GenericPeripheralModel: CharacteristicContainer, ObservableObject {
     /// The status of the device is updated by the delegate.
-    var status: PeripheralStatus { get set }
+    var state: CBPeripheralState { get set }
     
     /// Try to connect to the peripheral.
     func connect()

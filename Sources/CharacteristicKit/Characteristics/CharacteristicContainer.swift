@@ -8,6 +8,7 @@
 import Foundation
 import CoreBluetooth
 import Runtime
+import Combine
 
 /// Protocol for defining types that contain characteristics.
 ///
@@ -18,14 +19,23 @@ public protocol CharacteristicContainer {}
 public extension CharacteristicContainer {
     /// Get all the properties that of type ``Characteristic`` inside this container.
     /// - Returns: A dictionary of ``Characteristic``s keyed by their ``CBUUID``.
-    internal func getCharacteristics() -> [CBUUID: any DiscoverableCharacteristic] {
+    internal func getCharacteristics() async -> [CBUUID: any DiscoverableCharacteristic] {
         var variableMap: [CBUUID: any DiscoverableCharacteristic] = [:]
         let info = try! typeInfo(of: Self.self)
+        
         for property in info.properties {
             if let variable = try? property.get(from: self) as? any DiscoverableCharacteristic {
+                
+                // Characteristic.
                 variableMap[variable.uuid] = variable
+            } else if let publishedVariable = try? property.get(from: self) as? any PublishedCharacteristic {
+                var x = publishedVariable
+                let characteristic = await x.getInnerCharacteristic()
+                variableMap[characteristic.uuid] = characteristic
             } else if let variable = try? property.get(from: self) as? any CharacteristicContainer {
-                variableMap.merge(variable.getCharacteristics(), uniquingKeysWith: { (current, _) in
+                
+                // Characteristic container.
+                await variableMap.merge(variable.getCharacteristics(), uniquingKeysWith: { (current, _) in
                     current
                 })
             }

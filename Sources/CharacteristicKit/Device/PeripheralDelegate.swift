@@ -11,22 +11,22 @@ import CoreBluetooth
 import os
 
 /// An extension of the Core Bluetooth peripheral delegate that automatically scans its associated ``PeripheralModel`` for contained and nested ``Characteristic``s.
-public class PeripheralDelegate<Device: PeripheralModel>: NSObject, CBPeripheralDelegate {
+public class PeripheralDelegate<Model: PeripheralModel>: NSObject, CBPeripheralDelegate {
     internal var logger: Logger
-    private var device: Device
+    private var model: Model
     
     private var variableMap: [CBUUID: any DiscoverableCharacteristic] = [:]
     
     
     // TODO: Allow user to opt-out from automatic subscription.
     
-    /// Initialises a new instance of the delegate from a device that conforms to ``PeripheralModel``.
-    /// - Parameter device: A device conforming to ``PeripheralModel``.
-    public init(device: Device) {
+    /// Initialises a new instance of the delegate from a model that conforms to ``PeripheralModel``.
+    /// - Parameter model: A model conforming to ``PeripheralModel``.
+    public init(model: Model) async {
         self.logger = Logger(subsystem: "CharacteristicKit", category: "Bluetooth Device Delegate")
-        self.device = device
+        self.model = model
         
-        variableMap = self.device.getCharacteristics()
+        variableMap = await self.model.getCharacteristics()
         
         logger.info("Characteristic mapping complete: \(self.variableMap.count) characteristics mapped.")
     }
@@ -53,7 +53,7 @@ public class PeripheralDelegate<Device: PeripheralModel>: NSObject, CBPeripheral
         }
         
         DispatchQueue.main.async {
-            self.device.status = .connected
+            self.model.state = .connected
         }
     }
     

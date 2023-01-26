@@ -1,0 +1,74 @@
+//
+//  ContentView.swift
+//  Example
+//
+//  Created by Riccardo Persello on 02/01/23.
+//
+
+import SwiftUI
+
+struct ContentView: View {
+    @State var devices: [DeviceModel] = []
+    @State var fakeDevices: [FakeDeviceModel] = [FakeDeviceModel()]
+    var body: some View {
+        NavigationStack {
+            List {
+                Section("Fake devices") {
+                    ForEach(fakeDevices, id: \.name) { device in
+                        DeviceListItem(device: device)
+                            .swipeActions {
+                                Button(role: .destructive) {
+                                    fakeDevices.removeAll { d in
+                                        d.name == device.name
+                                    }
+                                } label: {
+                                    Label("Delete", systemSymbol: .trash)
+                                }
+                            }
+                    }
+                }
+                
+                Section("Real devices") {
+                    ForEach(devices) { device in
+                        DeviceListItem(device: device)
+                    }
+                }
+            }
+#if os(macOS)
+            .listStyle(.inset(alternatesRowBackgrounds: true))
+#endif
+            .toolbar {
+                Button {
+                    Task {
+                        devices = []
+                        if let stream = DeviceModel.discover() {
+                            for await deviceList in stream {
+                                devices = deviceList.filter({ model in
+                                    model.peripheral.name != nil
+                                })
+                                .filter({ model in
+                                    model.name.contains("Riccardo")
+                                })
+                            }
+                        }
+                    }
+                } label: {
+                    Label("Refresh", systemSymbol: .arrowClockwise)
+                }
+                
+                Button {
+                    fakeDevices.append(FakeDeviceModel())
+                } label: {
+                    Label("Create mock device", systemSymbol: .plus)
+                }
+            }
+            .navigationTitle("Batteries")
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}

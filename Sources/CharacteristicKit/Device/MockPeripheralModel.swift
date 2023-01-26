@@ -6,15 +6,16 @@
 //
 
 import Foundation
+import CoreBluetooth
 
 public protocol MockPeripheralModel: GenericPeripheralModel {}
 
 extension MockPeripheralModel {
     func connect() {
-        self.status = .connected
+        self.state = .connected
     }
     
     func disconnect() {
-        self.status = .disconnected
+        self.state = .disconnected
     }
 }

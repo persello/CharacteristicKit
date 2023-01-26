@@ -8,13 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		8B9C40B32962FD790061A554 /* ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9C40B22962FD790061A554 /* ExampleApp.swift */; };
-		8B9C40B52962FD790061A554 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9C40B42962FD790061A554 /* ContentView.swift */; };
 		8B9C40B72962FD7A0061A554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B9C40B62962FD7A0061A554 /* Assets.xcassets */; };
 		8B9C40BB2962FD7A0061A554 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B9C40BA2962FD7A0061A554 /* Preview Assets.xcassets */; };
 		8BA9487629814971007FC7F4 /* DeviceListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9487529814971007FC7F4 /* DeviceListItem.swift */; };
 		8BA9487929814A7D007FC7F4 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 8BA9487829814A7D007FC7F4 /* SFSafeSymbols */; };
 		8BA9487B29814BDF007FC7F4 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9487A29814BDF007FC7F4 /* DeviceModel.swift */; };
 		8BA9487E29814C04007FC7F4 /* CharacteristicKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8BA9487D29814C04007FC7F4 /* CharacteristicKit */; };
+		8BA94881298151F8007FC7F4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9C40B42962FD790061A554 /* ContentView.swift */; };
+		8BA948832981520D007FC7F4 /* DeviceModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA948822981520D007FC7F4 /* DeviceModelProtocol.swift */; };
+		8BA948852981528E007FC7F4 /* FakeDeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA948842981528E007FC7F4 /* FakeDeviceModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,9 @@
 		8BA9487429814857007FC7F4 /* CharacteristicKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CharacteristicKit; path = ..; sourceTree = "<group>"; };
 		8BA9487529814971007FC7F4 /* DeviceListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListItem.swift; sourceTree = "<group>"; };
 		8BA9487A29814BDF007FC7F4 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
+		8BA948822981520D007FC7F4 /* DeviceModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModelProtocol.swift; sourceTree = "<group>"; };
+		8BA948842981528E007FC7F4 /* FakeDeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDeviceModel.swift; sourceTree = "<group>"; };
+		8BA9488629816C73007FC7F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,10 +68,10 @@
 		8B9C40B12962FD790061A554 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				8BA9488629816C73007FC7F4 /* Info.plist */,
+				8BA94880298151E5007FC7F4 /* Views */,
+				8BA9487F298151DE007FC7F4 /* Model */,
 				8B9C40B22962FD790061A554 /* ExampleApp.swift */,
-				8B9C40B42962FD790061A554 /* ContentView.swift */,
-				8BA9487529814971007FC7F4 /* DeviceListItem.swift */,
-				8BA9487A29814BDF007FC7F4 /* DeviceModel.swift */,
 				8B9C40B62962FD7A0061A554 /* Assets.xcassets */,
 				8B9C40B82962FD7A0061A554 /* Example.entitlements */,
 				8B9C40B92962FD7A0061A554 /* Preview Content */,
@@ -95,6 +100,25 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8BA9487F298151DE007FC7F4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8BA9487A29814BDF007FC7F4 /* DeviceModel.swift */,
+				8BA948822981520D007FC7F4 /* DeviceModelProtocol.swift */,
+				8BA948842981528E007FC7F4 /* FakeDeviceModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8BA94880298151E5007FC7F4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8B9C40B42962FD790061A554 /* ContentView.swift */,
+				8BA9487529814971007FC7F4 /* DeviceListItem.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,9 +198,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B9C40B52962FD790061A554 /* ContentView.swift in Sources */,
+				8BA948852981528E007FC7F4 /* FakeDeviceModel.swift in Sources */,
 				8BA9487B29814BDF007FC7F4 /* DeviceModel.swift in Sources */,
 				8B9C40B32962FD790061A554 /* ExampleApp.swift in Sources */,
+				8BA94881298151F8007FC7F4 /* ContentView.swift in Sources */,
+				8BA948832981520D007FC7F4 /* DeviceModelProtocol.swift in Sources */,
 				8BA9487629814971007FC7F4 /* DeviceListItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,6 +338,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Example/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app needs to access Bluetooth in order to get battery information from nearby devices.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -354,6 +382,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Example/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app needs to access Bluetooth in order to get battery information from nearby devices.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
