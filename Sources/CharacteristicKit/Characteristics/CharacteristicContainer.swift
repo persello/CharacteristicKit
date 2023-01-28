@@ -14,9 +14,7 @@ import Combine
 ///
 /// If your ``GenericPeripheralModel`` contains nested ``Characteristic``s, make their containers adhere to this protocol.
 /// The adhering types contained in a ``GenericPeripheralModel`` will be scanned in search for internal ``Characteristic`` properties.
-public protocol CharacteristicContainer: ObservableObject where ObjectWillChangePublisher == ObservableObjectPublisher {
-    var valueChangeCancellable: AnyCancellable? { get set }
-}
+public protocol CharacteristicContainer: ObservableObject where ObjectWillChangePublisher == ObservableObjectPublisher {}
 
 public extension CharacteristicContainer {
     /// Get all the properties that of type ``Characteristic`` inside this container.
@@ -44,10 +42,12 @@ public extension CharacteristicContainer {
         }
         
         // Register change handlers...
-        for variable in variableMap {
-            let characteristic = variable.value
-            self.valueChangeCancellable = characteristic.objectWillChange.sink { [weak self] _ in
-                self?.objectWillChange.send()
+        if let model = self as? any GenericPeripheralModel {
+            for variable in variableMap {
+                let characteristic = variable.value
+                model.valueChangeCancellable = characteristic.objectWillChange.sink { _ in
+                    model.objectWillChange.send()
+                }
             }
         }
         

@@ -82,8 +82,16 @@ public extension PeripheralModel where Self.ObjectWillChangePublisher == Observa
             Self.centralManager = CBCentralManager(delegate: nil, queue: .global(qos: .userInitiated))
         }
         
-        guard let centralManager,
-              centralManager.state == .poweredOn else {
+        guard let centralManager else {
+            return nil
+        }
+        
+        while centralManager.state == .unknown {
+            // Blocking but works, I guess...
+            // And blocks only once.
+        }
+        
+        if centralManager.state != .poweredOn {
             return nil
         }
         
