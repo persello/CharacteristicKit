@@ -42,6 +42,14 @@ public extension PeripheralModel {
 }
 
 public extension PeripheralModel {
+    func connect() {
+        Self.centralManager?.connect(self.peripheral)
+    }
+    
+    func disconnect() {
+        Self.centralManager?.cancelPeripheralConnection(self.peripheral)
+    }
+    
     var state: CBPeripheralState {
         get {
             return peripheral.state

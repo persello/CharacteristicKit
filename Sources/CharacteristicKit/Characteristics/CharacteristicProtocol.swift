@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreBluetooth
+import Combine
 
 /// A protocol that defines a standardised interface for ``Characteristic`` and its mock ``MockCharacteristic``.
 public protocol CharacteristicProtocol<T>: ObservableObject, Equatable {
@@ -31,7 +32,7 @@ public protocol CharacteristicProtocol<T>: ObservableObject, Equatable {
 }
 
 /// An internal protocol for using ``Characteristic<T>`` generically.
-protocol DiscoverableCharacteristic: CharacteristicProtocol {
+protocol DiscoverableCharacteristic: CharacteristicProtocol where ObjectWillChangePublisher == ObservableObjectPublisher {
     
     /// Initialise the internal peripheral reference and try to discover the correspondent Core Bluetooth characteristic.
     /// - Parameter peripheral: Core Bluetooth peripheral on which the characteristic has been discovered.

@@ -8,8 +8,10 @@
 import Foundation
 import CharacteristicKit
 import CoreBluetooth
+import Combine
 
 class FakeDeviceModel: DeviceModelProtocol, MockPeripheralModel {
+    var cancellable: AnyCancellable?
     
     var name: String = "Fake device \(Int.random(in: 0...1000))"
     var batteryLevel = MockCharacteristic<Int8>(constant: 45)

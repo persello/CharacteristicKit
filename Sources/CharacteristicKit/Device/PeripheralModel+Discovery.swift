@@ -94,12 +94,4 @@ public extension PeripheralModel where Self.ObjectWillChangePublisher == Observa
             centralManager.scanForPeripherals(withServices: Self.requiredAdvertisedServices, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
         }
     }
-    
-    func connect() {
-        Self.centralManager?.connect(self.peripheral)
-    }
-    
-    func disconnect() {
-        Self.centralManager?.cancelPeripheralConnection(self.peripheral)
-    }
 }
