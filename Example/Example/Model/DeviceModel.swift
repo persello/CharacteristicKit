@@ -30,9 +30,6 @@ final class DeviceModel: DeviceModelProtocol, PeripheralModel {
     required init(from peripheral: CBPeripheral) {
         self.peripheral = peripheral
         
-        Task {
-            self.delegate = await CharacteristicKit.PeripheralDelegate(model: self)
-            peripheral.delegate = self.delegate
-        }
+        self.initialiseDelegate()
     }
 }

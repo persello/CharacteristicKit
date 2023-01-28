@@ -17,7 +17,7 @@ public protocol PeripheralModel: GenericPeripheralModel, Equatable, Identifiable
     static var centralManagerDelegate: CBCentralManagerDelegate? { get set }
     
     /// The required reference to the peripheral delegate.
-    var delegate: PeripheralDelegate<Self>? { get }
+    var delegate: PeripheralDelegate<Self>? { get set }
     
     /// The required reference to the peripheral.
     var peripheral: CBPeripheral { get }
@@ -46,7 +46,7 @@ public extension PeripheralModel {
     func initialiseDelegate() {
         Task {
             self.delegate = await PeripheralDelegate(model: self)
-            peripheral?.delegate = self.delegate
+            peripheral.delegate = self.delegate
         }
     }
 
