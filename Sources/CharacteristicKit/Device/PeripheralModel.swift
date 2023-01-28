@@ -42,6 +42,14 @@ public extension PeripheralModel {
 }
 
 public extension PeripheralModel {
+
+    func initialiseDelegate() {
+        Task {
+            self.delegate = await PeripheralDelegate(model: self)
+            peripheral?.delegate = self.delegate
+        }
+    }
+
     func connect() {
         Self.centralManager?.connect(self.peripheral)
     }
