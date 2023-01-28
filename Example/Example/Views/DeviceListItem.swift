@@ -29,8 +29,11 @@ struct DeviceListItem<Device: DeviceModelProtocol>: View {
                     .bold()
                 
                 if device.state == .connected {
-                    Text("\(Image(systemSymbol: batteryIcon)) \(device.batteryLevel.value)%")
-                        .foregroundColor(.secondary)
+                    HStack {
+                        Text("\(device.manufacturerName.value)")
+                        Text("\(Image(systemSymbol: batteryIcon)) \(device.batteryLevel.value)%")
+                            .foregroundColor(.secondary)
+                    }
                 }
             }
             

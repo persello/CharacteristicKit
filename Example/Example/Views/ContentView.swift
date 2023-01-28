@@ -46,9 +46,6 @@ struct ContentView: View {
                                 devices = deviceList.filter({ model in
                                     model.peripheral.name != nil
                                 })
-                                .filter({ model in
-                                    model.name.contains("Riccardo")
-                                })
                             }
                         }
                     }

@@ -85,7 +85,7 @@ public class Characteristic<T: Equatable>: CharacteristicProtocol, DiscoverableC
             }
         }
     }
-
+    
     
     /// Tries to set a new value for the characteristic.
     /// - Parameter value: New value.
@@ -119,20 +119,16 @@ public class Characteristic<T: Equatable>: CharacteristicProtocol, DiscoverableC
     /// Sets the local (internal) value, without notifying the actual device.
     ///
     /// This function triggers an observable object change.
-    /// - Parameter data: Raw data received from the device.
-    public func setLocalValue(data: Data) {
-        // Padding.
-        let requiredPadding = MemoryLayout<T>.size - data.count
-        var paddedData = Data(count: requiredPadding)
-        paddedData.append(data)
-        self.internalValue = paddedData.withUnsafeBytes({$0.load(as: T.self)})
+    /// - Parameter value: New value.
+    public func setLocalValue(value: T) {
+        self.internalValue = value
         
         if let csc = self.internalValue as? CustomStringConvertible {
             logger.trace("Local value set to \(csc.description)")
         } else {
             logger.trace("Local value set.")
         }
-                
+        
         DispatchQueue.main.async {
             self.objectWillChange.send()
         }
@@ -141,9 +137,20 @@ public class Characteristic<T: Equatable>: CharacteristicProtocol, DiscoverableC
     /// Sets the local (internal) value, without notifying the actual device.
     ///
     /// This function triggers an observable object change.
-    /// - Parameter value: New value.
-    public func setLocalValue(value: T) {
-        self.internalValue = value
+    /// - Parameter data: Raw data received from the device.
+    public func setLocalValue(data: Data) {
+        // Padding.
+        let requiredPadding = MemoryLayout<T>.size - data.count
+        var paddedData = Data(count: requiredPadding)
+        paddedData.append(data)
+        
+        if T.self == String.self {
+            if let encoding = data.stringEncoding {
+                self.internalValue = (String(data: data, encoding: encoding) ?? "") as! T
+            }
+        } else {
+            self.internalValue = paddedData.withUnsafeBytes({$0.load(as: T.self)})
+        }
         
         if let csc = self.internalValue as? CustomStringConvertible {
             logger.trace("Local value set to \(csc.description)")
@@ -160,7 +167,7 @@ public class Characteristic<T: Equatable>: CharacteristicProtocol, DiscoverableC
     var notifying: Bool {
         return characteristic?.isNotifying ?? false
     }
-
+    
     /// The updated value of this property.
     ///
     /// When reading, the updated value might not be immediately available.
@@ -178,5 +185,13 @@ public class Characteristic<T: Equatable>: CharacteristicProtocol, DiscoverableC
                 write(value: newValue)
             }
         }
+    }
+}
+
+extension Data {
+    var stringEncoding: String.Encoding? {
+        var nsString: NSString?
+        guard case let rawValue = NSString.stringEncoding(for: self, encodingOptions: nil, convertedString: &nsString, usedLossyConversion: nil), rawValue != 0 else { return nil }
+        return .init(rawValue: rawValue)
     }
 }

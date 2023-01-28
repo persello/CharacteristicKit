@@ -10,10 +10,10 @@ import CharacteristicKit
 import CoreBluetooth
 
 class FakeDeviceModel: DeviceModelProtocol, MockPeripheralModel {
-    typealias BatteryLevel = MockCharacteristic<Int8>
     
     var name: String = "Fake device \(Int.random(in: 0...1000))"
-    var batteryLevel = BatteryLevel(constant: 45)
+    var batteryLevel = MockCharacteristic<Int8>(constant: 45)
+    var manufacturerName = MockCharacteristic<String>(constant: "Antani Inc.")
     @Published var state: CBPeripheralState = .disconnected
     
     private var updateTimer: Timer?
