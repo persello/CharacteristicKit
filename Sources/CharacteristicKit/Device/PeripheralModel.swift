@@ -48,6 +48,7 @@ public extension PeripheralModel {
     
     func disconnect() {
         Self.centralManager?.cancelPeripheralConnection(self.peripheral)
+        self.valueChangeCancellable?.cancel()
     }
     
     var state: CBPeripheralState {

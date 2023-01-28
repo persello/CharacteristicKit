@@ -11,11 +11,12 @@ import CoreBluetooth
 import Combine
 
 class FakeDeviceModel: DeviceModelProtocol, MockPeripheralModel {
-    var cancellable: AnyCancellable?
+    var valueChangeCancellable: AnyCancellable?
     
     var name: String = "Fake device \(Int.random(in: 0...1000))"
     var batteryLevel = MockCharacteristic<Int8>(constant: 45)
     var manufacturerName = MockCharacteristic<String>(constant: "Antani Inc.")
+    
     @Published var state: CBPeripheralState = .disconnected
     
     private var updateTimer: Timer?
