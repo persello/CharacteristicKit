@@ -27,16 +27,16 @@ struct ContentView: View {
                             }
                     }
                 }
-                
+
                 Section("Real devices") {
                     ForEach(devices) { device in
                         DeviceListItem(device: device)
                     }
                 }
             }
-#if os(macOS)
+            #if os(macOS)
             .listStyle(.inset(alternatesRowBackgrounds: true))
-#endif
+            #endif
             .toolbar {
                 Button {
                     Task {
@@ -52,7 +52,7 @@ struct ContentView: View {
                 } label: {
                     Label("Refresh", systemSymbol: .arrowClockwise)
                 }
-                
+
                 Button {
                     fakeDevices.append(FakeDeviceModel())
                 } label: {

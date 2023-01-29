@@ -10,7 +10,7 @@ import SFSafeSymbols
 
 struct DeviceListItem<Device: DeviceModelProtocol>: View {
     @ObservedObject var device: Device
-    
+
     var batteryIcon: SFSymbol {
         switch device.batteryLevel.value {
         case 0..<12: return .battery0
@@ -21,13 +21,13 @@ struct DeviceListItem<Device: DeviceModelProtocol>: View {
         default: return .bolt
         }
     }
-    
+
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 Text(device.name)
                     .bold()
-                
+
                 if device.state == .connected {
                     HStack {
                         Text("\(device.manufacturerName.value)")
@@ -36,9 +36,9 @@ struct DeviceListItem<Device: DeviceModelProtocol>: View {
                     }
                 }
             }
-            
+
             Spacer()
-            
+
             if device.state == .connected {
                 Button {
                     device.disconnect()

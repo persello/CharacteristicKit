@@ -12,31 +12,31 @@ import Combine
 
 class FakeDeviceModel: DeviceModelProtocol, MockPeripheralModel {
     var valueChangeCancellable: AnyCancellable?
-    
+
     var name: String = "Fake device \(Int.random(in: 0...1000))"
     var batteryLevel = MockCharacteristic<Int8>(constant: 45)
     var manufacturerName = MockCharacteristic<String>(constant: "Antani Inc.")
-    
+
     @Published var state: CBPeripheralState = .disconnected
-    
+
     private var updateTimer: Timer?
-    
+
     func connect() {
         state = .connected
-        
+
         if let updateTimer {
             updateTimer.invalidate()
         }
-        
-        self.updateTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+
+        self.updateTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             self.batteryLevel.value = Int8.random(in: 0...100)
             self.objectWillChange.send()
         }
     }
-    
+
     func disconnect() {
         state = .disconnected
-        
+
         if let updateTimer {
             updateTimer.invalidate()
         }
