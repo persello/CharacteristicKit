@@ -8,11 +8,11 @@
 import Foundation
 
 public protocol DataDecodable {
-  func decode(from data: Data) -> Self?
+  static func decode(from data: Data) -> Self?
 }
 
 extension Int8: DataDecodable {
-    public func decode(from data: Data) -> Int8? {
+    public static func decode(from data: Data) -> Int8? {
     guard data.count == 1 else {
       return nil
     }
@@ -22,7 +22,7 @@ extension Int8: DataDecodable {
 }
 
 extension UInt8: DataDecodable {
-  public func decode(from data: Data) -> UInt8? {
+    public static func decode(from data: Data) -> UInt8? {
     guard data.count == 1 else {
       return nil
     }
@@ -32,7 +32,7 @@ extension UInt8: DataDecodable {
 }
 
 extension Int16: DataDecodable {
-  public func decode(from data: Data) -> Int16? {
+  public static func decode(from data: Data) -> Int16? {
     guard data.count == 2 else {
       return nil
     }
@@ -42,7 +42,7 @@ extension Int16: DataDecodable {
 }
 
 extension UInt16: DataDecodable {
-  public func decode(from data: Data) -> UInt16? {
+  public static func decode(from data: Data) -> UInt16? {
     guard data.count == 2 else {
       return nil
     }
@@ -52,7 +52,7 @@ extension UInt16: DataDecodable {
 }
 
 extension Int32: DataDecodable {
-  public func decode(from data: Data) -> Int32? {
+  public static func decode(from data: Data) -> Int32? {
     guard data.count == 4 else {
       return nil
     }
@@ -62,7 +62,7 @@ extension Int32: DataDecodable {
 }
 
 extension UInt32: DataDecodable {
-  public func decode(from data: Data) -> UInt32? {
+  public static func decode(from data: Data) -> UInt32? {
     guard data.count == 4 else {
       return nil
     }
@@ -72,7 +72,7 @@ extension UInt32: DataDecodable {
 }
 
 extension Int64: DataDecodable {
-  public func decode(from data: Data) -> Int64? {
+  public static func decode(from data: Data) -> Int64? {
     guard data.count == 8 else {
       return nil
     }
@@ -82,7 +82,7 @@ extension Int64: DataDecodable {
 }
 
 extension UInt64: DataDecodable {
-  public func decode(from data: Data) -> UInt64? {
+  public static func decode(from data: Data) -> UInt64? {
     guard data.count == 8 else {
       return nil
     }
@@ -92,7 +92,7 @@ extension UInt64: DataDecodable {
 }
 
 extension Float16: DataDecodable {
-  public func decode(from data: Data) -> Float16? {
+  public static func decode(from data: Data) -> Float16? {
     guard data.count == 2 else {
       return nil
     }
@@ -102,7 +102,7 @@ extension Float16: DataDecodable {
 }
 
 extension Float32: DataDecodable {
-  public func decode(from data: Data) -> Float32? {
+  public static func decode(from data: Data) -> Float32? {
     guard data.count == 4 else {
       return nil
     }
@@ -112,7 +112,7 @@ extension Float32: DataDecodable {
 }
 
 extension Float64: DataDecodable {
-  public func decode(from data: Data) -> Float64? {
+  public static func decode(from data: Data) -> Float64? {
     guard data.count == 8 else {
       return nil
     }
@@ -122,7 +122,7 @@ extension Float64: DataDecodable {
 }
 
 extension String: DataDecodable {
-  public func decode(from data: Data) -> String? {
+  public static func decode(from data: Data) -> String? {
     if let encoding = data.stringEncoding {
       // We are SURE that T is String. We just checked.
       return String(data: data, encoding: encoding)

@@ -141,7 +141,7 @@ public class Characteristic<T: Equatable>: GeneralCharacteristicProtocol, Charac
     /// This function triggers an observable object change.
     /// - Parameter data: Raw data received from the device.
     public func setLocalValue(data: Data) {
-        guard let decoded = (self.internalValue as? any DataDecodable)?.decode(from: data) as? T else {
+        guard let decoded = (T.self as? DataDecodable.Type)?.decode(from: data) as? T else {
             logger.error("Decoding failed.")
             return
         }
