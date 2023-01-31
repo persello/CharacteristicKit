@@ -143,6 +143,12 @@ public class Characteristic<T: Equatable>: CharacteristicProtocol, DiscoverableC
     public func setLocalValue(data: Data) {
         // Padding.
         let requiredPadding = MemoryLayout<T>.size - data.count
+
+        guard requiredPadding >= 0 else {
+            logger.error("The size of the received data is larger than the memory layout size of \(T.self).")
+            return
+        }
+
         var paddedData = Data(count: requiredPadding)
         paddedData.append(data)
 
