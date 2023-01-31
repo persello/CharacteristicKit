@@ -17,13 +17,12 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/wickwirew/Runtime.git", from: "2.0.0"),
-        .package(url: "https://github.com/realm/SwiftLint", branch: "main")
+        .package(url: "https://github.com/wickwirew/Runtime.git", from: "2.0.0")
     ],
     targets: [
         .target(
             name: "CharacteristicKit",
-            dependencies: ["Runtime"],
-            plugins: [.plugin(name: "SwiftLintPlugin", package: "SwiftLint")])
+            dependencies: ["Runtime"]
+        )
     ]
 )
