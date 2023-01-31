@@ -9,7 +9,7 @@ import Foundation
 import CoreBluetooth
 
 /// Represents a mock of ``Characteristic``, useful for creating simulated device models.
-public class MockCharacteristic<T: Equatable>: CharacteristicProtocol {
+public class MockCharacteristic<T: Equatable>: GeneralCharacteristicProtocol {
 
     /// The wrapped value of this property.
     @Published public var value: T

@@ -16,7 +16,7 @@ public class PeripheralDelegate<Model: PeripheralModel>: NSObject, CBPeripheralD
     internal var logger: Logger
     private var model: Model
 
-    private var variableMap: [CBUUID: any DiscoverableCharacteristic] = [:]
+    private var variableMap: [CBUUID: any CharacteristicProtocol] = [:]
 
     // TODO: Allow user to opt-out from automatic subscription.
 

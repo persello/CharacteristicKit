@@ -9,11 +9,11 @@ import Foundation
 import Combine
 
 protocol PublishedCharacteristic {
-    mutating func getInnerCharacteristic() async -> any DiscoverableCharacteristic
+    mutating func getInnerCharacteristic() async -> any CharacteristicProtocol
 }
 
-extension Combine.Published: PublishedCharacteristic where Value: DiscoverableCharacteristic {
-    mutating func getInnerCharacteristic() async -> any DiscoverableCharacteristic {
+extension Combine.Published: PublishedCharacteristic where Value: CharacteristicProtocol {
+    mutating func getInnerCharacteristic() async -> any CharacteristicProtocol {
         await withCheckedContinuation({ continuation in
             _ = self.projectedValue.sink { characteristic in
                 continuation.resume(returning: characteristic)

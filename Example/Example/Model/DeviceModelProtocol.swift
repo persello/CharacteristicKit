@@ -9,8 +9,8 @@ import Foundation
 import CharacteristicKit
 
 protocol DeviceModelProtocol: GenericPeripheralModel {
-    associatedtype BatteryLevel: CharacteristicProtocol<Int8>
-    associatedtype ManufacturerNameString: CharacteristicProtocol<String>
+    associatedtype BatteryLevel: GeneralCharacteristicProtocol<Int8>
+    associatedtype ManufacturerNameString: GeneralCharacteristicProtocol<String>
 
     var name: String { get }
     var batteryLevel: BatteryLevel { get }

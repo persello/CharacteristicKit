@@ -22,14 +22,14 @@ where ObjectWillChangePublisher == ObservableObjectPublisher {}
 public extension CharacteristicContainer {
     /// Get all the properties that of type ``Characteristic`` inside this container.
     /// - Returns: A dictionary of ``Characteristic``s keyed by their ``CBUUID``.
-    internal func getCharacteristics() async -> [CBUUID: any DiscoverableCharacteristic] {
-        var variableMap: [CBUUID: any DiscoverableCharacteristic] = [:]
+    internal func getCharacteristics() async -> [CBUUID: any CharacteristicProtocol] {
+        var variableMap: [CBUUID: any CharacteristicProtocol] = [:]
         guard let info = try? typeInfo(of: Self.self) else {
             return variableMap
         }
 
         for property in info.properties {
-            if let variable = try? property.get(from: self) as? any DiscoverableCharacteristic {
+            if let variable = try? property.get(from: self) as? any CharacteristicProtocol {
 
                 // Characteristic.
                 variableMap[variable.uuid] = variable

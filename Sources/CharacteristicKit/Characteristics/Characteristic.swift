@@ -10,7 +10,7 @@ import CoreBluetooth
 import os
 
 /// Representation of a GATT characteristic.
-public class Characteristic<T: Equatable>: CharacteristicProtocol, DiscoverableCharacteristic {
+public class Characteristic<T: Equatable>: GeneralCharacteristicProtocol, CharacteristicProtocol {
     /// The latest read or written value for this ``Characteristic``.
     private var internalValue: T
 
@@ -30,7 +30,7 @@ public class Characteristic<T: Equatable>: CharacteristicProtocol, DiscoverableC
     var lastReadingTime: Date
 
     /// Internal logger.
-    private let logger: Logger
+    internal let logger: Logger
 
     /// Declare a new ``Characteristic``.
     /// - Parameters:
@@ -141,26 +141,12 @@ public class Characteristic<T: Equatable>: CharacteristicProtocol, DiscoverableC
     /// This function triggers an observable object change.
     /// - Parameter data: Raw data received from the device.
     public func setLocalValue(data: Data) {
-        // Padding.
-        let requiredPadding = MemoryLayout<T>.size - data.count
-
-        guard requiredPadding >= 0 else {
-            logger.error("The size of the received data is larger than the memory layout size of \(T.self).")
+        guard let decoded = (self.internalValue as? any DataDecodable)?.decode(from: data) as? T else {
+            logger.error("Decoding failed.")
             return
         }
 
-        var paddedData = Data(count: requiredPadding)
-        paddedData.append(data)
-
-        if T.self == String.self {
-            if let encoding = data.stringEncoding {
-                // We are SURE that T is String. We just checked.
-                // swiftlint:disable:next force_cast
-                self.internalValue = (String(data: data, encoding: encoding) ?? "") as! T
-            }
-        } else {
-            self.internalValue = paddedData.withUnsafeBytes({$0.load(as: T.self)})
-        }
+        self.internalValue = decoded
 
         if let csc = self.internalValue as? CustomStringConvertible {
             logger.trace("Local value set to \(csc.description)")

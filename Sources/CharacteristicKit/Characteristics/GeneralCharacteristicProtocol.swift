@@ -10,7 +10,7 @@ import CoreBluetooth
 import Combine
 
 /// A protocol that defines a standardised interface for ``Characteristic`` and its mock ``MockCharacteristic``.
-public protocol CharacteristicProtocol<T>: ObservableObject, Equatable {
+public protocol GeneralCharacteristicProtocol<T>: ObservableObject, Equatable {
 
     /// The type of this characteristic's represented value.
     associatedtype T: Equatable     // swiftlint:disable:this type_name
@@ -21,17 +21,17 @@ public protocol CharacteristicProtocol<T>: ObservableObject, Equatable {
     /// Core Bluetooth identifier associated with this characteristic.
     var uuid: CBUUID { get }
 
-    /// Set the internal value from a buffer of bytes.
-    /// - Parameter data: Raw value representation.
-    func setLocalValue(data: Data)
-
     /// Set the internal value.
     /// - Parameter value: new value.
     func setLocalValue(value: T)
+
+    /// Set the internal value from a buffer of bytes.
+    /// - Parameter data: Raw value representation.
+    func setLocalValue(data: Data)
 }
 
 /// An internal protocol for using ``Characteristic<T>`` generically.
-protocol DiscoverableCharacteristic: CharacteristicProtocol
+protocol CharacteristicProtocol: GeneralCharacteristicProtocol
 where ObjectWillChangePublisher == ObservableObjectPublisher {
 
     /// Initialise the internal peripheral reference and try to
@@ -41,4 +41,5 @@ where ObjectWillChangePublisher == ObservableObjectPublisher {
 
     /// Refreshes the internal value by fetching it from the peripheral.
     func refreshValue()
+
 }
