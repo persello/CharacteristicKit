@@ -77,6 +77,12 @@ extension Float16: DataDecodable {
   }
 }
 
+extension Float32: DataDecodable {
+  func decode(from data: Data) -> Float32? {
+    return data.withUnsafeBytes { $0.load(as: Float32.self) }
+  }
+}
+
 extension Float64: DataDecodable {
   func decode(from data: Data) -> Float64? {
     return data.withUnsafeBytes { $0.load(as: Float64.self) }
