@@ -91,6 +91,8 @@ extension UInt64: DataDecodable {
   }
 }
 
+#if os(macOS)
+#else
 extension Float16: DataDecodable {
   public static func decode(from data: Data) -> Float16? {
     guard data.count == 2 else {
@@ -100,6 +102,7 @@ extension Float16: DataDecodable {
     return data.withUnsafeBytes { $0.load(as: Float16.self) }
   }
 }
+#endif
 
 extension Float32: DataDecodable {
   public static func decode(from data: Data) -> Float32? {
