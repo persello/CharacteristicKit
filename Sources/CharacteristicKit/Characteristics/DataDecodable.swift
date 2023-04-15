@@ -11,6 +11,16 @@ public protocol DataDecodable {
   static func decode(from data: Data) -> Self?
 }
 
+extension Bool: DataDecodable {
+    public static func decode(from data: Data) -> Bool? {
+        guard data.count == 1 else {
+            return nil
+        }
+        
+        return data.withUnsafeBytes { $0.load(as: Int8.self) != 0 }
+    }
+}
+
 extension Int8: DataDecodable {
     public static func decode(from data: Data) -> Int8? {
     guard data.count == 1 else {

@@ -67,8 +67,9 @@ public class Characteristic<T: Equatable>: GeneralCharacteristicProtocol, Charac
 
     /// Tries to fetch an updated value for this characteristic.
     public func refreshValue() {
-        guard let peripheral else {
-            logger.warning("A refresh action has been tried before the peripheral has been set.")
+        guard let peripheral,
+              peripheral.state == .connected else {
+            logger.warning("A refresh action has been tried while the peripheral is unavailable.")
             return
         }
 
@@ -90,8 +91,9 @@ public class Characteristic<T: Equatable>: GeneralCharacteristicProtocol, Charac
     /// - Parameter value: New value.
     func write(value: T) {
 
-        guard let peripheral else {
-            logger.warning("A write action has been tried before the peripheral has been set.")
+        guard let peripheral,
+        peripheral.state == .connected else {
+            logger.warning("A write action has been tried while the peripheral is unavailable.")
             return
         }
 
