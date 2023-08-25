@@ -6,3 +6,5 @@
 <img src="Resources/CharacteristicKit.png" align="right" width="120px" style="position: relative; top: -80px" />
 
 A library that simplifies the creation of BLE device models.
+
+See [docs](https://swiftpackageindex.com/persello/CharacteristicKit/v0.1.1/documentation/characteristickit).
