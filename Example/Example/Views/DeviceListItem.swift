@@ -6,19 +6,18 @@
 //
 
 import SwiftUI
-import SFSafeSymbols
 
 struct DeviceListItem<Device: DeviceModelProtocol>: View {
     @ObservedObject var device: Device
 
-    var batteryIcon: SFSymbol {
+    var batteryIcon: String {
         switch device.batteryLevel.value {
-        case 0..<12: return .battery0
-        case 12..<37: return .battery25
-        case 37..<62: return .battery50
-        case 62..<87: return .battery75
-        case 87...100: return .battery100
-        default: return .bolt
+        case 0..<12: return "battery.0"
+        case 12..<37: return "battery.25"
+        case 37..<62: return "battery.50"
+        case 62..<87: return "battery.75"
+        case 87...100: return "battery.100"
+        default: return "bolt"
         }
     }
 
@@ -31,7 +30,7 @@ struct DeviceListItem<Device: DeviceModelProtocol>: View {
                 if device.state == .connected {
                     HStack {
                         Text("\(device.manufacturerName.value)")
-                        Text("\(Image(systemSymbol: batteryIcon)) \(device.batteryLevel.value)%")
+                        Text("\(Image(systemName: batteryIcon)) \(device.batteryLevel.value)%")
                             .foregroundColor(.secondary)
                     }
                 }

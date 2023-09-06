@@ -23,6 +23,11 @@ let package = Package(
         .target(
             name: "CharacteristicKit",
             dependencies: ["Runtime"]
+        ),
+        .executableTarget(
+            name: "Example",
+            dependencies: ["CharacteristicKit"],
+            path: "Example/Example"
         )
     ]
 )

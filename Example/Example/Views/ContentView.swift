@@ -11,7 +11,7 @@ struct ContentView: View {
     @State var devices: [DeviceModel] = []
     @State var fakeDevices: [FakeDeviceModel] = [FakeDeviceModel()]
     var body: some View {
-        NavigationStack {
+        NavigationView {
             List {
                 Section("Fake devices") {
                     ForEach(fakeDevices, id: \.name) { device in
@@ -22,7 +22,7 @@ struct ContentView: View {
                                         d.name == device.name
                                     }
                                 } label: {
-                                    Label("Delete", systemSymbol: .trash)
+                                    Label("Delete", systemImage: "trash")
                                 }
                             }
                     }
@@ -50,13 +50,13 @@ struct ContentView: View {
                         }
                     }
                 } label: {
-                    Label("Refresh", systemSymbol: .arrowClockwise)
+                    Label("Refresh", systemImage: "arrow.clockwise")
                 }
 
                 Button {
                     fakeDevices.append(FakeDeviceModel())
                 } label: {
-                    Label("Create mock device", systemSymbol: .plus)
+                    Label("Create mock device", systemImage: "plus")
                 }
             }
             .navigationTitle("Batteries")

@@ -8,7 +8,9 @@
 import Foundation
 import CoreBluetooth
 
-/// Represents the root class of a peripheral model.
+/// A protocol for building peripheral models.
+///
+/// Conforming your device model class to ``PeripheralModel`` will allow to
 public protocol PeripheralModel: GenericPeripheralModel, Equatable, Identifiable, Hashable {
 
     static var requiredAdvertisedServices: [CBUUID]? { get }
