@@ -45,7 +45,7 @@ struct ContentView: View {
                             for await deviceList in stream {
                                 devices = deviceList.filter({ model in
                                     model.peripheral.name != nil
-                                })
+                                }) as! [DeviceModel]
                             }
                         }
                     }

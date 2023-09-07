@@ -12,9 +12,9 @@ import os
 
 /// An extension of the Core Bluetooth peripheral delegate that automatically scans its associated ``PeripheralModel``
 /// for contained and nested ``Characteristic``s.
-public class PeripheralDelegate<Model: PeripheralModel>: NSObject, CBPeripheralDelegate {
+public class PeripheralDelegate: NSObject, CBPeripheralDelegate {
     internal var logger: Logger
-    private var model: Model
+    private var model: PeripheralModel
 
     private var variableMap: [CBUUID: any CharacteristicProtocol] = [:]
 
@@ -22,7 +22,7 @@ public class PeripheralDelegate<Model: PeripheralModel>: NSObject, CBPeripheralD
 
     /// Initialises a new instance of the delegate from a model that conforms to ``PeripheralModel``.
     /// - Parameter model: A model conforming to ``PeripheralModel``.
-    public init(model: Model) async {
+    public init(model: PeripheralModel) async {
         self.logger = Logger(subsystem: "CharacteristicKit", category: "Bluetooth Device Delegate")
         self.model = model
 

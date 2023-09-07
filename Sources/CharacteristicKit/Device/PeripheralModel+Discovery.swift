@@ -9,17 +9,15 @@ import Foundation
 import CoreBluetooth
 import Combine
 
-class DiscoveryDelegate<Model>: NSObject, CBCentralManagerDelegate
-where Model: PeripheralModel,
-      Model.ObjectWillChangePublisher == ObservableObjectPublisher {
+class DiscoveryDelegate<T: PeripheralModel>: NSObject, CBCentralManagerDelegate {
 
-    private var continuation: AsyncStream<[Model]>.Continuation
+    private var continuation: AsyncStream<[T]>.Continuation
     private var timeout: TimeInterval
 
     private var deviceDiscoveries: [UUID: Date] = [:]
-    private var models: [Model] = []
+    private var models: [T] = []
 
-    init(continuation: AsyncStream<[Model]>.Continuation, timeout: TimeInterval) {
+    init(continuation: AsyncStream<[T]>.Continuation, timeout: TimeInterval) {
         self.continuation = continuation
         self.timeout = timeout
     }
@@ -40,7 +38,12 @@ where Model: PeripheralModel,
         if !models.contains(where: { model in
             model.peripheral.identifier == peripheral.identifier
         }) {
-            models.append(Model(from: peripheral))
+            Task {
+                let model = await PeripheralModel(from: peripheral)
+                if model is T {
+                    models.append(model as! T)
+                }
+            }
         }
 
         // Keep only devices seen in the last `timeout` seconds, or that are currently connected.
@@ -67,7 +70,7 @@ where Model: PeripheralModel,
                 model.objectWillChange.send()
             }
 
-            model.peripheral.discoverServices(Model.servicesToScan)
+            model.peripheral.discoverServices(T.servicesToScan)
         }
     }
 
@@ -82,8 +85,8 @@ where Model: PeripheralModel,
     }
 }
 
-public extension PeripheralModel where Self.ObjectWillChangePublisher == ObservableObjectPublisher {
-    static func discover(removeAfter timeout: TimeInterval = 5) -> AsyncStream<[Self]>? {
+public extension PeripheralModel {
+    static func discover<T: PeripheralModel>(removeAfter timeout: TimeInterval = 5) -> AsyncStream<[T]>? {
         if Self.centralManager == nil {
             Self.centralManager = CBCentralManager(delegate: nil, queue: .global(qos: .userInitiated))
         }
@@ -101,7 +104,7 @@ public extension PeripheralModel where Self.ObjectWillChangePublisher == Observa
             return nil
         }
 
-        return AsyncStream<[Self]> { continuation in
+        return AsyncStream<[T]> { continuation in
             if centralManagerDelegate == nil {
                 centralManagerDelegate = DiscoveryDelegate(continuation: continuation, timeout: timeout)
             }
@@ -109,7 +112,7 @@ public extension PeripheralModel where Self.ObjectWillChangePublisher == Observa
             centralManager.delegate = centralManagerDelegate
 
             centralManager.scanForPeripherals(
-                withServices: Self.requiredAdvertisedServices,
+                withServices: self.requiredAdvertisedServices,
                 options: [CBCentralManagerScanOptionAllowDuplicatesKey: true]
             )
         }
